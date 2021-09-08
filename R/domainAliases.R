@@ -10,22 +10,24 @@
 	#' \itemize{
 	#' \item https://www.googleapis.com/auth/admin.directory.domain
 	#' }
-	#' @param domainAliasName Name of domain alias to be retrieved.
 	#' @param customer Immutable ID of the Google Workspace account.
+	#' @param domainAliasName Name of domain alias to be retrieved.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	domainAliases.delete <- function(domainAliasName, customer, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.delete']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	domainAliases.delete <- function(customer, domainAliasName, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.delete']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.domainAliases.delete']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -43,22 +45,24 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.domain
 	#' \item https://www.googleapis.com/auth/admin.directory.domain.readonly
 	#' }
-	#' @param domainAliasName Name of domain alias to be retrieved.
 	#' @param customer Immutable ID of the Google Workspace account.
+	#' @param domainAliasName Name of domain alias to be retrieved.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	domainAliases.get <- function(domainAliasName, customer, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.get']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	domainAliases.get <- function(customer, domainAliasName, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.get']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.domainAliases.get']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -76,26 +80,28 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.domain
 	#' }
 	#' @param customer Immutable ID of the Google Workspace account.
-	#' @param kind Kind of resource this is.
+	#' @param domainAliasName The domain alias name.
 	#' @param verified Indicates the verification state of a domain alias. (Read-only)
+	#' @param kind Kind of resource this is.
+	#' @param etag ETag of the resource.
 	#' @param creationTime The creation time of the domain alias. (Read-only).
 	#' @param parentDomainName The parent domain name that the domain alias is associated with. This can either be a primary or secondary domain name within a customer.
-	#' @param domainAliasName The domain alias name.
-	#' @param etag ETag of the resource.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	domainAliases.insert <- function(customer, kind = NULL, verified = NULL, creationTime = NULL, parentDomainName = NULL, domainAliasName = NULL, etag = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.insert']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	domainAliases.insert <- function(customer, domainAliasName = NULL, verified = NULL, kind = NULL, etag = NULL, creationTime = NULL, parentDomainName = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.insert']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.domainAliases.insert']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -116,19 +122,21 @@
 	#' @param customer Immutable ID of the Google Workspace account.
 	#' @param parentDomainName Name of the parent domain for which domain aliases are to be fetched.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	domainAliases.list <- function(customer, parentDomainName = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.list']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	domainAliases.list <- function(customer, parentDomainName = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.domainAliases.list']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.domainAliases.list']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)

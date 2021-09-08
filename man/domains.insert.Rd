@@ -7,21 +7,22 @@
 domains.insert(
   customer,
   domainAliases = NULL,
-  creationTime = NULL,
-  verified = NULL,
   domainName = NULL,
-  kind = NULL,
   etag = NULL,
+  creationTime = NULL,
+  kind = NULL,
+  verified = NULL,
   isPrimary = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.domains.insert"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
@@ -30,25 +31,19 @@ domains.insert(
 
 \item{domainAliases}{List of domain alias objects. (Read-only)}
 
-\item{creationTime}{Creation time of the domain. Expressed in \href{https://en.wikipedia.org/wiki/Epoch_time}{Unix time} format. (Read-only).}
-
-\item{verified}{Indicates the verification state of a domain. (Read-only).}
-
 \item{domainName}{The domain name of the customer.}
+
+\item{etag}{ETag of the resource.}
+
+\item{creationTime}{Creation time of the domain. Expressed in \href{https://en.wikipedia.org/wiki/Epoch_time}{Unix time} format. (Read-only).}
 
 \item{kind}{Kind of resource this is.}
 
-\item{etag}{ETag of the resource.}
+\item{verified}{Indicates the verification state of a domain. (Read-only).}
 
 \item{isPrimary}{Indicates if the domain is a primary domain (Read-only).}
 
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -56,7 +51,15 @@ domains.insert(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

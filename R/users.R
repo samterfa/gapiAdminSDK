@@ -12,19 +12,21 @@
 	#' }
 	#' @param userKey Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.delete <- function(userKey, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.delete']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.delete <- function(userKey, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.delete']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.delete']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -43,23 +45,25 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.user.readonly
 	#' }
 	#' @param userKey Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.
-	#' @param customFieldMask A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when `projection=custom`.
 	#' @param viewType Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see [Retrieve a user as a non-administrator](/admin-sdk/directory/v1/guides/manage-users#retrieve_users_non_admin).
+	#' @param customFieldMask A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when `projection=custom`.
 	#' @param projection What subset of fields to fetch for this user.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.get <- function(userKey, customFieldMask = NULL, viewType = NULL, projection = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.get']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.get <- function(userKey, viewType = NULL, customFieldMask = NULL, projection = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.get']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.get']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -76,49 +80,51 @@
 	#' \itemize{
 	#' \item https://www.googleapis.com/auth/admin.directory.user
 	#' }
-	#' @param suspended Indicates if user is suspended.
-	#' @param includeInGlobalAddressList Indicates if the user's profile is visible in the Google Workspace global address list when the contact sharing feature is enabled for the domain. For more information about excluding user profiles, see the [administration help center](https://support.google.com/a/answer/1285988).
-	#' @param keywords The user's keywords. The maximum allowed data size for this field is 1Kb.
-	#' @param ims The user's Instant Messenger (IM) accounts. A user account can have multiple ims properties. But, only one of these ims properties can be the primary IM contact. The maximum allowed data size for this field is 2Kb.
-	#' @param customSchemas Custom fields of the user.
-	#' @param notes Notes for the user.
+	#' @param name Holds the given and family names of the user, and the read-only `fullName` value. The maximum number of characters in the `givenName` and in the `familyName` values is 60. In addition, name values support unicode/UTF-8 characters, and can contain spaces, letters (a-z), numbers (0-9), dashes (-), forward slashes (/), and periods (.). For more information about character usage rules, see the [administration help center](https://support.google.com/a/answer/9193374). Maximum allowed data size for this field is 1Kb.
+	#' @param phones A list of the user's phone numbers. The maximum allowed data size for this field is 1Kb.
 	#' @param id The unique ID for the user. A user `id` can be used as a user request URI's `userKey`.
+	#' @param customSchemas Custom fields of the user.
+	#' @param organizations A list of organizations the user belongs to. The maximum allowed data size for this field is 10Kb.
+	#' @param locations The user's locations. The maximum allowed data size for this field is 10Kb.
+	#' @param ipWhitelisted If `true`, the user's IP address is [whitelisted](https://support.google.com/a/answer/60752).
+	#' @param includeInGlobalAddressList Indicates if the user's profile is visible in the Google Workspace global address list when the contact sharing feature is enabled for the domain. For more information about excluding user profiles, see the [administration help center](https://support.google.com/a/answer/1285988).
 	#' @param gender The user's gender. The maximum allowed data size for this field is 1Kb.
 	#' @param hashFunction Stores the hash format of the password property. We recommend sending the `password` property value as a base 16 bit hexadecimal-encoded hash value. Set the `hashFunction` values as either the [SHA-1](https://wikipedia.org/wiki/SHA-1), [MD5](https://wikipedia.org/wiki/MD5), or [crypt](https://en.wikipedia.org/wiki/Crypt_\(C\)) hash format.
-	#' @param ipWhitelisted If `true`, the user's IP address is [whitelisted](https://support.google.com/a/answer/60752).
-	#' @param emails A list of the user's email addresses. The maximum allowed data size for this field is 10Kb.
-	#' @param languages The user's languages. The maximum allowed data size for this field is 1Kb.
-	#' @param sshPublicKeys A list of SSH public keys.
-	#' @param addresses A list of the user's addresses. The maximum allowed data size for this field is 10Kb.
-	#' @param locations The user's locations. The maximum allowed data size for this field is 10Kb.
-	#' @param name Holds the given and family names of the user, and the read-only `fullName` value. The maximum number of characters in the `givenName` and in the `familyName` values is 60. In addition, name values support unicode/UTF-8 characters, and can contain spaces, letters (a-z), numbers (0-9), dashes (-), forward slashes (/), and periods (.). For more information about character usage rules, see the [administration help center](https://support.google.com/a/answer/9193374). Maximum allowed data size for this field is 1Kb.
-	#' @param primaryEmail The user's primary email address. This property is required in a request to create a user account. The `primaryEmail` must be unique and cannot be an alias of another user.
-	#' @param relations A list of the user's relationships to other users. The maximum allowed data size for this field is 2Kb.
-	#' @param phones A list of the user's phone numbers. The maximum allowed data size for this field is 1Kb.
-	#' @param password User's password
-	#' @param organizations A list of organizations the user belongs to. The maximum allowed data size for this field is 10Kb.
-	#' @param externalIds A list of external IDs for the user, such as an employee or network ID. The maximum allowed data size for this field is 2Kb.
-	#' @param changePasswordAtNextLogin Indicates if the user is forced to change their password at next login. This setting doesn't apply when [the user signs in via a third-party identity provider](https://support.google.com/a/answer/60224).
-	#' @param archived Indicates if user is archived.
-	#' @param recoveryEmail Recovery email of the user.
 	#' @param posixAccounts A list of [POSIX](https://www.opengroup.org/austin/papers/posix_faq.html) account information for the user.
-	#' @param orgUnitPath The full path of the parent organization associated with the user. If the parent organization is the top-level, it is represented as a forward slash (`/`).
-	#' @param websites The user's websites. The maximum allowed data size for this field is 2Kb.
+	#' @param externalIds A list of external IDs for the user, such as an employee or network ID. The maximum allowed data size for this field is 2Kb.
+	#' @param keywords The user's keywords. The maximum allowed data size for this field is 1Kb.
+	#' @param ims The user's Instant Messenger (IM) accounts. A user account can have multiple ims properties. But, only one of these ims properties can be the primary IM contact. The maximum allowed data size for this field is 2Kb.
+	#' @param notes Notes for the user.
+	#' @param addresses A list of the user's addresses. The maximum allowed data size for this field is 10Kb.
+	#' @param changePasswordAtNextLogin Indicates if the user is forced to change their password at next login. This setting doesn't apply when [the user signs in via a third-party identity provider](https://support.google.com/a/answer/60224).
+	#' @param recoveryEmail Recovery email of the user.
+	#' @param password User's password
+	#' @param sshPublicKeys A list of SSH public keys.
+	#' @param archived Indicates if user is archived.
+	#' @param languages The user's languages. The maximum allowed data size for this field is 1Kb.
+	#' @param suspended Indicates if user is suspended.
+	#' @param primaryEmail The user's primary email address. This property is required in a request to create a user account. The `primaryEmail` must be unique and cannot be an alias of another user.
+	#' @param emails A list of the user's email addresses. The maximum allowed data size for this field is 10Kb.
 	#' @param recoveryPhone Recovery phone of the user. The phone number must be in the E.164 format, starting with the plus sign (+). Example: *+16506661212*.
+	#' @param orgUnitPath The full path of the parent organization associated with the user. If the parent organization is the top-level, it is represented as a forward slash (`/`).
+	#' @param relations A list of the user's relationships to other users. The maximum allowed data size for this field is 2Kb.
+	#' @param websites The user's websites. The maximum allowed data size for this field is 2Kb.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.insert <- function(suspended = NULL, includeInGlobalAddressList = NULL, keywords = NULL, ims = NULL, customSchemas = NULL, notes = NULL, id = NULL, gender = NULL, hashFunction = NULL, ipWhitelisted = NULL, emails = NULL, languages = NULL, sshPublicKeys = NULL, addresses = NULL, locations = NULL, name = NULL, primaryEmail = NULL, relations = NULL, phones = NULL, password = NULL, organizations = NULL, externalIds = NULL, changePasswordAtNextLogin = NULL, archived = NULL, recoveryEmail = NULL, posixAccounts = NULL, orgUnitPath = NULL, websites = NULL, recoveryPhone = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.insert']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.insert <- function(name = NULL, phones = NULL, id = NULL, customSchemas = NULL, organizations = NULL, locations = NULL, ipWhitelisted = NULL, includeInGlobalAddressList = NULL, gender = NULL, hashFunction = NULL, posixAccounts = NULL, externalIds = NULL, keywords = NULL, ims = NULL, notes = NULL, addresses = NULL, changePasswordAtNextLogin = NULL, recoveryEmail = NULL, password = NULL, sshPublicKeys = NULL, archived = NULL, languages = NULL, suspended = NULL, primaryEmail = NULL, emails = NULL, recoveryPhone = NULL, orgUnitPath = NULL, relations = NULL, websites = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.insert']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.insert']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -137,32 +143,34 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.user.readonly
 	#' \item https://www.googleapis.com/auth/cloud-platform
 	#' }
-	#' @param event Event on which subscription is intended (if subscribing)
-	#' @param domain The domain name. Use this field to get fields from only one domain. To return all domains for a customer account, use the `customer` query parameter instead. Either the `customer` or the `domain` parameter must be provided.
-	#' @param projection What subset of fields to fetch for this user.
-	#' @param orderBy Property to use for sorting results.
-	#' @param query Query string for searching user fields. For more information on constructing user queries, see [Search for Users](/admin-sdk/directory/v1/guides/search-users).
-	#' @param showDeleted If set to `true`, retrieves the list of deleted users. (Default: `false`)
-	#' @param maxResults Maximum number of results to return.
 	#' @param pageToken Token to specify next page in the list
-	#' @param customer The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, fill this field instead of domain. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users resource](/admin-sdk/directory/v1/reference/users). Either the `customer` or the `domain` parameter must be provided.
 	#' @param customFieldMask A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when `projection=custom`.
+	#' @param event Event on which subscription is intended (if subscribing)
 	#' @param sortOrder Whether to return results in ascending or descending order.
 	#' @param viewType Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see [Retrieve a user as a non-administrator](/admin-sdk/directory/v1/guides/manage-users#retrieve_users_non_admin).
+	#' @param query Query string for searching user fields. For more information on constructing user queries, see [Search for Users](/admin-sdk/directory/v1/guides/search-users).
+	#' @param domain The domain name. Use this field to get fields from only one domain. To return all domains for a customer account, use the `customer` query parameter instead. Either the `customer` or the `domain` parameter must be provided.
+	#' @param showDeleted If set to `true`, retrieves the list of deleted users. (Default: `false`)
+	#' @param orderBy Property to use for sorting results.
+	#' @param maxResults Maximum number of results to return.
+	#' @param customer The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, fill this field instead of domain. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users resource](/admin-sdk/directory/v1/reference/users). Either the `customer` or the `domain` parameter must be provided.
+	#' @param projection What subset of fields to fetch for this user.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.list <- function(event = NULL, domain = NULL, projection = NULL, orderBy = NULL, query = NULL, showDeleted = NULL, maxResults = NULL, pageToken = NULL, customer = NULL, customFieldMask = NULL, sortOrder = NULL, viewType = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.list']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.list <- function(pageToken = NULL, customFieldMask = NULL, event = NULL, sortOrder = NULL, viewType = NULL, query = NULL, domain = NULL, showDeleted = NULL, orderBy = NULL, maxResults = NULL, customer = NULL, projection = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.list']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.list']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -182,19 +190,21 @@
 	#' @param userKey Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.
 	#' @param status Indicates the administrator status of the user.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.makeAdmin <- function(userKey, status = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.makeAdmin']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.makeAdmin <- function(userKey, status = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.makeAdmin']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.makeAdmin']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -212,49 +222,51 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.user
 	#' }
 	#' @param userKey Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.
-	#' @param suspended Indicates if user is suspended.
-	#' @param includeInGlobalAddressList Indicates if the user's profile is visible in the Google Workspace global address list when the contact sharing feature is enabled for the domain. For more information about excluding user profiles, see the [administration help center](https://support.google.com/a/answer/1285988).
-	#' @param keywords The user's keywords. The maximum allowed data size for this field is 1Kb.
-	#' @param ims The user's Instant Messenger (IM) accounts. A user account can have multiple ims properties. But, only one of these ims properties can be the primary IM contact. The maximum allowed data size for this field is 2Kb.
-	#' @param customSchemas Custom fields of the user.
-	#' @param notes Notes for the user.
+	#' @param name Holds the given and family names of the user, and the read-only `fullName` value. The maximum number of characters in the `givenName` and in the `familyName` values is 60. In addition, name values support unicode/UTF-8 characters, and can contain spaces, letters (a-z), numbers (0-9), dashes (-), forward slashes (/), and periods (.). For more information about character usage rules, see the [administration help center](https://support.google.com/a/answer/9193374). Maximum allowed data size for this field is 1Kb.
+	#' @param phones A list of the user's phone numbers. The maximum allowed data size for this field is 1Kb.
 	#' @param id The unique ID for the user. A user `id` can be used as a user request URI's `userKey`.
+	#' @param customSchemas Custom fields of the user.
+	#' @param organizations A list of organizations the user belongs to. The maximum allowed data size for this field is 10Kb.
+	#' @param locations The user's locations. The maximum allowed data size for this field is 10Kb.
+	#' @param ipWhitelisted If `true`, the user's IP address is [whitelisted](https://support.google.com/a/answer/60752).
+	#' @param includeInGlobalAddressList Indicates if the user's profile is visible in the Google Workspace global address list when the contact sharing feature is enabled for the domain. For more information about excluding user profiles, see the [administration help center](https://support.google.com/a/answer/1285988).
 	#' @param gender The user's gender. The maximum allowed data size for this field is 1Kb.
 	#' @param hashFunction Stores the hash format of the password property. We recommend sending the `password` property value as a base 16 bit hexadecimal-encoded hash value. Set the `hashFunction` values as either the [SHA-1](https://wikipedia.org/wiki/SHA-1), [MD5](https://wikipedia.org/wiki/MD5), or [crypt](https://en.wikipedia.org/wiki/Crypt_\(C\)) hash format.
-	#' @param ipWhitelisted If `true`, the user's IP address is [whitelisted](https://support.google.com/a/answer/60752).
-	#' @param emails A list of the user's email addresses. The maximum allowed data size for this field is 10Kb.
-	#' @param languages The user's languages. The maximum allowed data size for this field is 1Kb.
-	#' @param sshPublicKeys A list of SSH public keys.
-	#' @param addresses A list of the user's addresses. The maximum allowed data size for this field is 10Kb.
-	#' @param locations The user's locations. The maximum allowed data size for this field is 10Kb.
-	#' @param name Holds the given and family names of the user, and the read-only `fullName` value. The maximum number of characters in the `givenName` and in the `familyName` values is 60. In addition, name values support unicode/UTF-8 characters, and can contain spaces, letters (a-z), numbers (0-9), dashes (-), forward slashes (/), and periods (.). For more information about character usage rules, see the [administration help center](https://support.google.com/a/answer/9193374). Maximum allowed data size for this field is 1Kb.
-	#' @param primaryEmail The user's primary email address. This property is required in a request to create a user account. The `primaryEmail` must be unique and cannot be an alias of another user.
-	#' @param relations A list of the user's relationships to other users. The maximum allowed data size for this field is 2Kb.
-	#' @param phones A list of the user's phone numbers. The maximum allowed data size for this field is 1Kb.
-	#' @param password User's password
-	#' @param organizations A list of organizations the user belongs to. The maximum allowed data size for this field is 10Kb.
-	#' @param externalIds A list of external IDs for the user, such as an employee or network ID. The maximum allowed data size for this field is 2Kb.
-	#' @param changePasswordAtNextLogin Indicates if the user is forced to change their password at next login. This setting doesn't apply when [the user signs in via a third-party identity provider](https://support.google.com/a/answer/60224).
-	#' @param archived Indicates if user is archived.
-	#' @param recoveryEmail Recovery email of the user.
 	#' @param posixAccounts A list of [POSIX](https://www.opengroup.org/austin/papers/posix_faq.html) account information for the user.
-	#' @param orgUnitPath The full path of the parent organization associated with the user. If the parent organization is the top-level, it is represented as a forward slash (`/`).
-	#' @param websites The user's websites. The maximum allowed data size for this field is 2Kb.
+	#' @param externalIds A list of external IDs for the user, such as an employee or network ID. The maximum allowed data size for this field is 2Kb.
+	#' @param keywords The user's keywords. The maximum allowed data size for this field is 1Kb.
+	#' @param ims The user's Instant Messenger (IM) accounts. A user account can have multiple ims properties. But, only one of these ims properties can be the primary IM contact. The maximum allowed data size for this field is 2Kb.
+	#' @param notes Notes for the user.
+	#' @param addresses A list of the user's addresses. The maximum allowed data size for this field is 10Kb.
+	#' @param changePasswordAtNextLogin Indicates if the user is forced to change their password at next login. This setting doesn't apply when [the user signs in via a third-party identity provider](https://support.google.com/a/answer/60224).
+	#' @param recoveryEmail Recovery email of the user.
+	#' @param password User's password
+	#' @param sshPublicKeys A list of SSH public keys.
+	#' @param archived Indicates if user is archived.
+	#' @param languages The user's languages. The maximum allowed data size for this field is 1Kb.
+	#' @param suspended Indicates if user is suspended.
+	#' @param primaryEmail The user's primary email address. This property is required in a request to create a user account. The `primaryEmail` must be unique and cannot be an alias of another user.
+	#' @param emails A list of the user's email addresses. The maximum allowed data size for this field is 10Kb.
 	#' @param recoveryPhone Recovery phone of the user. The phone number must be in the E.164 format, starting with the plus sign (+). Example: *+16506661212*.
+	#' @param orgUnitPath The full path of the parent organization associated with the user. If the parent organization is the top-level, it is represented as a forward slash (`/`).
+	#' @param relations A list of the user's relationships to other users. The maximum allowed data size for this field is 2Kb.
+	#' @param websites The user's websites. The maximum allowed data size for this field is 2Kb.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.patch <- function(userKey, suspended = NULL, includeInGlobalAddressList = NULL, keywords = NULL, ims = NULL, customSchemas = NULL, notes = NULL, id = NULL, gender = NULL, hashFunction = NULL, ipWhitelisted = NULL, emails = NULL, languages = NULL, sshPublicKeys = NULL, addresses = NULL, locations = NULL, name = NULL, primaryEmail = NULL, relations = NULL, phones = NULL, password = NULL, organizations = NULL, externalIds = NULL, changePasswordAtNextLogin = NULL, archived = NULL, recoveryEmail = NULL, posixAccounts = NULL, orgUnitPath = NULL, websites = NULL, recoveryPhone = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.patch']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.patch <- function(userKey, name = NULL, phones = NULL, id = NULL, customSchemas = NULL, organizations = NULL, locations = NULL, ipWhitelisted = NULL, includeInGlobalAddressList = NULL, gender = NULL, hashFunction = NULL, posixAccounts = NULL, externalIds = NULL, keywords = NULL, ims = NULL, notes = NULL, addresses = NULL, changePasswordAtNextLogin = NULL, recoveryEmail = NULL, password = NULL, sshPublicKeys = NULL, archived = NULL, languages = NULL, suspended = NULL, primaryEmail = NULL, emails = NULL, recoveryPhone = NULL, orgUnitPath = NULL, relations = NULL, websites = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.patch']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.patch']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -273,19 +285,21 @@
 	#' }
 	#' @param userKey Identifies the target user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.signOut <- function(userKey, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.signOut']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.signOut <- function(userKey, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.signOut']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.signOut']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -305,19 +319,21 @@
 	#' @param userKey The immutable id of the user
 	#' @param orgUnitPath OrgUnit of User
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.undelete <- function(userKey, orgUnitPath = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.undelete']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.undelete <- function(userKey, orgUnitPath = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.undelete']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.undelete']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -335,49 +351,51 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.user
 	#' }
 	#' @param userKey Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.
-	#' @param suspended Indicates if user is suspended.
-	#' @param includeInGlobalAddressList Indicates if the user's profile is visible in the Google Workspace global address list when the contact sharing feature is enabled for the domain. For more information about excluding user profiles, see the [administration help center](https://support.google.com/a/answer/1285988).
-	#' @param keywords The user's keywords. The maximum allowed data size for this field is 1Kb.
-	#' @param ims The user's Instant Messenger (IM) accounts. A user account can have multiple ims properties. But, only one of these ims properties can be the primary IM contact. The maximum allowed data size for this field is 2Kb.
-	#' @param customSchemas Custom fields of the user.
-	#' @param notes Notes for the user.
+	#' @param name Holds the given and family names of the user, and the read-only `fullName` value. The maximum number of characters in the `givenName` and in the `familyName` values is 60. In addition, name values support unicode/UTF-8 characters, and can contain spaces, letters (a-z), numbers (0-9), dashes (-), forward slashes (/), and periods (.). For more information about character usage rules, see the [administration help center](https://support.google.com/a/answer/9193374). Maximum allowed data size for this field is 1Kb.
+	#' @param phones A list of the user's phone numbers. The maximum allowed data size for this field is 1Kb.
 	#' @param id The unique ID for the user. A user `id` can be used as a user request URI's `userKey`.
+	#' @param customSchemas Custom fields of the user.
+	#' @param organizations A list of organizations the user belongs to. The maximum allowed data size for this field is 10Kb.
+	#' @param locations The user's locations. The maximum allowed data size for this field is 10Kb.
+	#' @param ipWhitelisted If `true`, the user's IP address is [whitelisted](https://support.google.com/a/answer/60752).
+	#' @param includeInGlobalAddressList Indicates if the user's profile is visible in the Google Workspace global address list when the contact sharing feature is enabled for the domain. For more information about excluding user profiles, see the [administration help center](https://support.google.com/a/answer/1285988).
 	#' @param gender The user's gender. The maximum allowed data size for this field is 1Kb.
 	#' @param hashFunction Stores the hash format of the password property. We recommend sending the `password` property value as a base 16 bit hexadecimal-encoded hash value. Set the `hashFunction` values as either the [SHA-1](https://wikipedia.org/wiki/SHA-1), [MD5](https://wikipedia.org/wiki/MD5), or [crypt](https://en.wikipedia.org/wiki/Crypt_\(C\)) hash format.
-	#' @param ipWhitelisted If `true`, the user's IP address is [whitelisted](https://support.google.com/a/answer/60752).
-	#' @param emails A list of the user's email addresses. The maximum allowed data size for this field is 10Kb.
-	#' @param languages The user's languages. The maximum allowed data size for this field is 1Kb.
-	#' @param sshPublicKeys A list of SSH public keys.
-	#' @param addresses A list of the user's addresses. The maximum allowed data size for this field is 10Kb.
-	#' @param locations The user's locations. The maximum allowed data size for this field is 10Kb.
-	#' @param name Holds the given and family names of the user, and the read-only `fullName` value. The maximum number of characters in the `givenName` and in the `familyName` values is 60. In addition, name values support unicode/UTF-8 characters, and can contain spaces, letters (a-z), numbers (0-9), dashes (-), forward slashes (/), and periods (.). For more information about character usage rules, see the [administration help center](https://support.google.com/a/answer/9193374). Maximum allowed data size for this field is 1Kb.
-	#' @param primaryEmail The user's primary email address. This property is required in a request to create a user account. The `primaryEmail` must be unique and cannot be an alias of another user.
-	#' @param relations A list of the user's relationships to other users. The maximum allowed data size for this field is 2Kb.
-	#' @param phones A list of the user's phone numbers. The maximum allowed data size for this field is 1Kb.
-	#' @param password User's password
-	#' @param organizations A list of organizations the user belongs to. The maximum allowed data size for this field is 10Kb.
-	#' @param externalIds A list of external IDs for the user, such as an employee or network ID. The maximum allowed data size for this field is 2Kb.
-	#' @param changePasswordAtNextLogin Indicates if the user is forced to change their password at next login. This setting doesn't apply when [the user signs in via a third-party identity provider](https://support.google.com/a/answer/60224).
-	#' @param archived Indicates if user is archived.
-	#' @param recoveryEmail Recovery email of the user.
 	#' @param posixAccounts A list of [POSIX](https://www.opengroup.org/austin/papers/posix_faq.html) account information for the user.
-	#' @param orgUnitPath The full path of the parent organization associated with the user. If the parent organization is the top-level, it is represented as a forward slash (`/`).
-	#' @param websites The user's websites. The maximum allowed data size for this field is 2Kb.
+	#' @param externalIds A list of external IDs for the user, such as an employee or network ID. The maximum allowed data size for this field is 2Kb.
+	#' @param keywords The user's keywords. The maximum allowed data size for this field is 1Kb.
+	#' @param ims The user's Instant Messenger (IM) accounts. A user account can have multiple ims properties. But, only one of these ims properties can be the primary IM contact. The maximum allowed data size for this field is 2Kb.
+	#' @param notes Notes for the user.
+	#' @param addresses A list of the user's addresses. The maximum allowed data size for this field is 10Kb.
+	#' @param changePasswordAtNextLogin Indicates if the user is forced to change their password at next login. This setting doesn't apply when [the user signs in via a third-party identity provider](https://support.google.com/a/answer/60224).
+	#' @param recoveryEmail Recovery email of the user.
+	#' @param password User's password
+	#' @param sshPublicKeys A list of SSH public keys.
+	#' @param archived Indicates if user is archived.
+	#' @param languages The user's languages. The maximum allowed data size for this field is 1Kb.
+	#' @param suspended Indicates if user is suspended.
+	#' @param primaryEmail The user's primary email address. This property is required in a request to create a user account. The `primaryEmail` must be unique and cannot be an alias of another user.
+	#' @param emails A list of the user's email addresses. The maximum allowed data size for this field is 10Kb.
 	#' @param recoveryPhone Recovery phone of the user. The phone number must be in the E.164 format, starting with the plus sign (+). Example: *+16506661212*.
+	#' @param orgUnitPath The full path of the parent organization associated with the user. If the parent organization is the top-level, it is represented as a forward slash (`/`).
+	#' @param relations A list of the user's relationships to other users. The maximum allowed data size for this field is 2Kb.
+	#' @param websites The user's websites. The maximum allowed data size for this field is 2Kb.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.update <- function(userKey, suspended = NULL, includeInGlobalAddressList = NULL, keywords = NULL, ims = NULL, customSchemas = NULL, notes = NULL, id = NULL, gender = NULL, hashFunction = NULL, ipWhitelisted = NULL, emails = NULL, languages = NULL, sshPublicKeys = NULL, addresses = NULL, locations = NULL, name = NULL, primaryEmail = NULL, relations = NULL, phones = NULL, password = NULL, organizations = NULL, externalIds = NULL, changePasswordAtNextLogin = NULL, archived = NULL, recoveryEmail = NULL, posixAccounts = NULL, orgUnitPath = NULL, websites = NULL, recoveryPhone = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.update']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.update <- function(userKey, name = NULL, phones = NULL, id = NULL, customSchemas = NULL, organizations = NULL, locations = NULL, ipWhitelisted = NULL, includeInGlobalAddressList = NULL, gender = NULL, hashFunction = NULL, posixAccounts = NULL, externalIds = NULL, keywords = NULL, ims = NULL, notes = NULL, addresses = NULL, changePasswordAtNextLogin = NULL, recoveryEmail = NULL, password = NULL, sshPublicKeys = NULL, archived = NULL, languages = NULL, suspended = NULL, primaryEmail = NULL, emails = NULL, recoveryPhone = NULL, orgUnitPath = NULL, relations = NULL, websites = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.update']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.update']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -397,41 +415,43 @@
 	#' \item https://www.googleapis.com/auth/cloud-platform
 	#' }
 	#' @param projection What subset of fields to fetch for this user.
-	#' @param domain Name of the domain. Fill this field to get users from only this domain. To return all users in a multi-domain fill customer field instead."
-	#' @param customer Immutable ID of the Google Workspace account. In case of multi-domain, to fetch all users for a customer, fill this field instead of domain.
 	#' @param orderBy Column to use for sorting results
-	#' @param showDeleted If set to true, retrieves the list of deleted users. (Default: false)
-	#' @param query Query string search. Should be of the form "". Complete documentation is at https: //developers.google.com/admin-sdk/directory/v1/guides/search-users
-	#' @param pageToken Token to specify next page in the list
-	#' @param sortOrder Whether to return results in ascending or descending order.
 	#' @param customFieldMask Comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when projection=custom.
 	#' @param viewType Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see [Retrieve a user as a non-administrator](/admin-sdk/directory/v1/guides/manage-users#retrieve_users_non_admin).
+	#' @param domain Name of the domain. Fill this field to get users from only this domain. To return all users in a multi-domain fill customer field instead."
+	#' @param customer Immutable ID of the Google Workspace account. In case of multi-domain, to fetch all users for a customer, fill this field instead of domain.
 	#' @param maxResults Maximum number of results to return.
+	#' @param showDeleted If set to true, retrieves the list of deleted users. (Default: false)
 	#' @param event Events to watch for.
-	#' @param type The type of delivery mechanism used for this channel.
+	#' @param pageToken Token to specify next page in the list
+	#' @param query Query string search. Should be of the form "". Complete documentation is at https: //developers.google.com/admin-sdk/directory/v1/guides/search-users
+	#' @param sortOrder Whether to return results in ascending or descending order.
 	#' @param params Additional parameters controlling delivery channel behavior. Optional.
-	#' @param id A UUID or similar unique string that identifies this channel.
-	#' @param resourceUri A version-specific identifier for the watched resource.
-	#' @param kind Identifies this as a notification channel used to watch for changes to a resource, which is `api#channel`.
-	#' @param payload A Boolean value to indicate whether payload is wanted. Optional.
-	#' @param address The address where notifications are delivered for this channel.
-	#' @param token An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
 	#' @param expiration Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.
+	#' @param payload A Boolean value to indicate whether payload is wanted. Optional.
+	#' @param type The type of delivery mechanism used for this channel.
+	#' @param kind Identifies this as a notification channel used to watch for changes to a resource, which is `api#channel`.
+	#' @param address The address where notifications are delivered for this channel.
+	#' @param resourceUri A version-specific identifier for the watched resource.
+	#' @param token An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
+	#' @param id A UUID or similar unique string that identifies this channel.
 	#' @param resourceId An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	users.watch <- function(projection = NULL, domain = NULL, customer = NULL, orderBy = NULL, showDeleted = NULL, query = NULL, pageToken = NULL, sortOrder = NULL, customFieldMask = NULL, viewType = NULL, maxResults = NULL, event = NULL, type = NULL, params = NULL, id = NULL, resourceUri = NULL, kind = NULL, payload = NULL, address = NULL, token = NULL, expiration = NULL, resourceId = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.watch']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	users.watch <- function(projection = NULL, orderBy = NULL, customFieldMask = NULL, viewType = NULL, domain = NULL, customer = NULL, maxResults = NULL, showDeleted = NULL, event = NULL, pageToken = NULL, query = NULL, sortOrder = NULL, params = NULL, expiration = NULL, payload = NULL, type = NULL, kind = NULL, address = NULL, resourceUri = NULL, token = NULL, id = NULL, resourceId = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.users.watch']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.users.watch']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)

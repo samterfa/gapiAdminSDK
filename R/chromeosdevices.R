@@ -15,19 +15,21 @@
 	#' @param deprovisionReason Only used when the action is `deprovision`. With the `deprovision` action, this field is required. *Note*: The deprovision reason is audited because it might have implications on licenses for perpetual subscription customers.
 	#' @param action Action to be taken on the Chrome OS device.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	chromeosdevices.action <- function(customerId, resourceId, deprovisionReason = NULL, action = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.action']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	chromeosdevices.action <- function(customerId, resourceId, deprovisionReason = NULL, action = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.action']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.chromeosdevices.action']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -49,19 +51,21 @@
 	#' @param deviceId The unique ID of the device. The `deviceId`s are returned in the response from the [chromeosdevices.list](/admin-sdk/directory/v1/reference/chromeosdevices/list) method.
 	#' @param projection Determines whether the response contains the full list of properties or only a subset.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	chromeosdevices.get <- function(customerId, deviceId, projection = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.get']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	chromeosdevices.get <- function(customerId, deviceId, projection = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.get']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.chromeosdevices.get']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -80,27 +84,29 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.device.chromeos.readonly
 	#' }
 	#' @param customerId The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users resource](/admin-sdk/directory/v1/reference/users).
-	#' @param pageToken The `pageToken` query parameter is used to request the next page of query results. The follow-on request's `pageToken` query parameter is the `nextPageToken` from your previous response.
-	#' @param sortOrder Whether to return results in ascending or descending order. Must be used with the `orderBy` parameter.
-	#' @param query Search string in the format given at http://support.google.com/chromeos/a/bin/answer.py?answer=1698333
 	#' @param projection Restrict information returned to a set of selected fields.
 	#' @param orgUnitPath The full path of the organizational unit or its unique ID.
+	#' @param query Search string in the format given at http://support.google.com/chromeos/a/bin/answer.py?answer=1698333
+	#' @param sortOrder Whether to return results in ascending or descending order. Must be used with the `orderBy` parameter.
+	#' @param pageToken The `pageToken` query parameter is used to request the next page of query results. The follow-on request's `pageToken` query parameter is the `nextPageToken` from your previous response.
 	#' @param maxResults Maximum number of results to return.
 	#' @param orderBy Device property to use for sorting results.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	chromeosdevices.list <- function(customerId, pageToken = NULL, sortOrder = NULL, query = NULL, projection = NULL, orgUnitPath = NULL, maxResults = NULL, orderBy = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.list']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	chromeosdevices.list <- function(customerId, projection = NULL, orgUnitPath = NULL, query = NULL, sortOrder = NULL, pageToken = NULL, maxResults = NULL, orderBy = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.list']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.chromeosdevices.list']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -121,19 +127,21 @@
 	#' @param orgUnitPath Full path of the target organizational unit or its ID
 	#' @param deviceIds Chrome OS devices to be moved to OU
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	chromeosdevices.moveDevicesToOu <- function(customerId, orgUnitPath, deviceIds = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.moveDevicesToOu']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	chromeosdevices.moveDevicesToOu <- function(customerId, orgUnitPath, deviceIds = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.moveDevicesToOu']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.chromeosdevices.moveDevicesToOu']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -150,59 +158,61 @@
 	#' \itemize{
 	#' \item https://www.googleapis.com/auth/admin.directory.device.chromeos
 	#' }
-	#' @param customerId The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users resource](/admin-sdk/directory/v1/reference/users).
 	#' @param deviceId The unique ID of the device. The `deviceId`s are returned in the response from the [chromeosdevices.list](/admin-sdk/v1/reference/chromeosdevices/list) method.
+	#' @param customerId The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users resource](/admin-sdk/directory/v1/reference/users).
 	#' @param projection Restrict information returned to a set of selected fields.
-	#' @param screenshotFiles List of screenshot files to download. Type is always "SCREENSHOT_FILE". (Read-only)
-	#' @param firmwareVersion The Chrome device's firmware version.
-	#' @param systemRamFreeReports Reports of amounts of available RAM memory (Read-only)
-	#' @param orderNumber The device's order number. Only devices directly purchased from Google have an order number.
-	#' @param ethernetMacAddress The device's MAC address on the ethernet network interface.
-	#' @param platformVersion The Chrome device's platform version.
-	#' @param deviceFiles List of device files to download (Read-only)
+	#' @param lastSync Date and time the device was last synchronized with the policy settings in the G Suite administrator control panel (Read-only)
+	#' @param serialNumber The Chrome device serial number entered when the device was enabled. This value is the same as the Admin console's *Serial Number* in the *Chrome OS Devices* tab.
 	#' @param macAddress The device's wireless MAC address. If the device does not have this information, it is not included in the response.
-	#' @param willAutoRenew Determines if the device will auto renew its support after the support end date. This is a read-only property.
-	#' @param recentUsers List of recent device users, in descending order, by last login time.
-	#' @param annotatedLocation The address or location of the device as noted by the administrator. Maximum length is `200` characters. Empty values are allowed.
-	#' @param systemRamTotal Total RAM on the device [in bytes] (Read-only)
+	#' @param cpuStatusReports Reports of CPU utilization and temperature (Read-only)
+	#' @param ethernetMacAddress0 (Read-only) MAC address used by the Chromebook’s internal ethernet port, and for onboard network (ethernet) interface. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
+	#' @param bootMode The boot mode for the device. The possible values are: * `Verified`: The device is running a valid version of the Chrome OS. * `Dev`: The devices's developer hardware switch is enabled. When booted, the device has a command line shell. For an example of a developer switch, see the [Chromebook developer information](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/samsung-series-5-chromebook#TOC-Developer-switch).
 	#' @param status The status of the device.
+	#' @param willAutoRenew Determines if the device will auto renew its support after the support end date. This is a read-only property.
+	#' @param orgUnitPath The full parent path with the organizational unit's name associated with the device. Path names are case insensitive. If the parent organizational unit is the top-level organization, it is represented as a forward slash, `/`. This property can be [updated](/admin-sdk/directory/v1/guides/manage-chrome-devices#update_chrome_device) using the API. For more information about how to create an organizational structure for your device, see the [administration help center](https://support.google.com/a/answer/182433).
+	#' @param diskVolumeReports Reports of disk space and other info about mounted/connected volumes.
+	#' @param firmwareVersion The Chrome device's firmware version.
+	#' @param activeTimeRanges List of active time ranges (Read-only).
 	#' @param annotatedUser The user of the device as noted by the administrator. Maximum length is 100 characters. Empty values are allowed.
+	#' @param recentUsers List of recent device users, in descending order, by last login time.
+	#' @param orderNumber The device's order number. Only devices directly purchased from Google have an order number.
 	#' @param model The device's model information. If the device does not have this information, this property is not included in the response.
 	#' @param supportEndDate Final date the device will be supported (Read-only)
-	#' @param ethernetMacAddress0 (Read-only) MAC address used by the Chromebook’s internal ethernet port, and for onboard network (ethernet) interface. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
-	#' @param notes Notes about this device added by the administrator. This property can be [searched](https://support.google.com/chrome/a/answer/1698333) with the [list](/admin-sdk/directory/v1/reference/chromeosdevices/list) method's `query` parameter. Maximum length is 500 characters. Empty values are allowed.
-	#' @param serialNumber The Chrome device serial number entered when the device was enabled. This value is the same as the Admin console's *Serial Number* in the *Chrome OS Devices* tab.
-	#' @param diskVolumeReports Reports of disk space and other info about mounted/connected volumes.
-	#' @param cpuStatusReports Reports of CPU utilization and temperature (Read-only)
-	#' @param bootMode The boot mode for the device. The possible values are: * `Verified`: The device is running a valid version of the Chrome OS. * `Dev`: The devices's developer hardware switch is enabled. When booted, the device has a command line shell. For an example of a developer switch, see the [Chromebook developer information](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/samsung-series-5-chromebook#TOC-Developer-switch).
-	#' @param orgUnitPath The full parent path with the organizational unit's name associated with the device. Path names are case insensitive. If the parent organizational unit is the top-level organization, it is represented as a forward slash, `/`. This property can be [updated](/admin-sdk/directory/v1/guides/manage-chrome-devices#update_chrome_device) using the API. For more information about how to create an organizational structure for your device, see the [administration help center](https://support.google.com/a/answer/182433).
-	#' @param lastSync Date and time the device was last synchronized with the policy settings in the G Suite administrator control panel (Read-only)
+	#' @param deviceFiles List of device files to download (Read-only)
 	#' @param annotatedAssetId The asset identifier as noted by an administrator or specified during enrollment.
-	#' @param osVersion The Chrome device's operating system version.
-	#' @param lastEnrollmentTime Date and time the device was last enrolled (Read-only)
-	#' @param kind The type of resource. For the Chromeosdevices resource, the value is `admin#directory#chromeosdevice`.
-	#' @param lastKnownNetwork Contains last known network (Read-only)
-	#' @param activeTimeRanges List of active time ranges (Read-only).
-	#' @param manufactureDate (Read-only) The date the device was manufactured in yyyy-mm-dd format.
-	#' @param tpmVersionInfo Trusted Platform Module (TPM) (Read-only)
+	#' @param platformVersion The Chrome device's platform version.
+	#' @param systemRamFreeReports Reports of amounts of available RAM memory (Read-only)
 	#' @param meid The Mobile Equipment Identifier (MEID) or the International Mobile Equipment Identity (IMEI) for the 3G mobile card in a mobile device. A MEID/IMEI is typically used when adding a device to a wireless carrier's post-pay service plan. If the device does not have this information, this property is not included in the response. For more information on how to export a MEID/IMEI list, see the [Developer's Guide](/admin-sdk/directory/v1/guides/manage-chrome-devices.html#export_meid).
-	#' @param dockMacAddress (Read-only) Built-in MAC address for the docking station that the device connected to. Factory sets Media access control address (MAC address) assigned for use by a dock. It is reserved specifically for MAC pass through device policy. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
-	#' @param etag ETag of the resource.
+	#' @param kind The type of resource. For the Chromeosdevices resource, the value is `admin#directory#chromeosdevice`.
+	#' @param osVersion The Chrome device's operating system version.
+	#' @param annotatedLocation The address or location of the device as noted by the administrator. Maximum length is `200` characters. Empty values are allowed.
 	#' @param autoUpdateExpiration (Read-only) The timestamp after which the device will stop receiving Chrome updates or support
+	#' @param lastKnownNetwork Contains last known network (Read-only)
+	#' @param dockMacAddress (Read-only) Built-in MAC address for the docking station that the device connected to. Factory sets Media access control address (MAC address) assigned for use by a dock. It is reserved specifically for MAC pass through device policy. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
+	#' @param systemRamTotal Total RAM on the device [in bytes] (Read-only)
+	#' @param etag ETag of the resource.
+	#' @param ethernetMacAddress The device's MAC address on the ethernet network interface.
+	#' @param manufactureDate (Read-only) The date the device was manufactured in yyyy-mm-dd format.
+	#' @param screenshotFiles List of screenshot files to download. Type is always "SCREENSHOT_FILE". (Read-only)
+	#' @param lastEnrollmentTime Date and time the device was last enrolled (Read-only)
+	#' @param notes Notes about this device added by the administrator. This property can be [searched](https://support.google.com/chrome/a/answer/1698333) with the [list](/admin-sdk/directory/v1/reference/chromeosdevices/list) method's `query` parameter. Maximum length is 500 characters. Empty values are allowed.
+	#' @param tpmVersionInfo Trusted Platform Module (TPM) (Read-only)
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	chromeosdevices.patch <- function(customerId, deviceId, projection = NULL, screenshotFiles = NULL, firmwareVersion = NULL, systemRamFreeReports = NULL, orderNumber = NULL, ethernetMacAddress = NULL, platformVersion = NULL, deviceFiles = NULL, macAddress = NULL, willAutoRenew = NULL, recentUsers = NULL, annotatedLocation = NULL, systemRamTotal = NULL, status = NULL, annotatedUser = NULL, model = NULL, supportEndDate = NULL, ethernetMacAddress0 = NULL, notes = NULL, serialNumber = NULL, diskVolumeReports = NULL, cpuStatusReports = NULL, bootMode = NULL, orgUnitPath = NULL, lastSync = NULL, annotatedAssetId = NULL, osVersion = NULL, lastEnrollmentTime = NULL, kind = NULL, lastKnownNetwork = NULL, activeTimeRanges = NULL, manufactureDate = NULL, tpmVersionInfo = NULL, meid = NULL, dockMacAddress = NULL, etag = NULL, autoUpdateExpiration = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.patch']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	chromeosdevices.patch <- function(deviceId, customerId, projection = NULL, lastSync = NULL, serialNumber = NULL, macAddress = NULL, cpuStatusReports = NULL, ethernetMacAddress0 = NULL, bootMode = NULL, status = NULL, willAutoRenew = NULL, orgUnitPath = NULL, diskVolumeReports = NULL, firmwareVersion = NULL, activeTimeRanges = NULL, annotatedUser = NULL, recentUsers = NULL, orderNumber = NULL, model = NULL, supportEndDate = NULL, deviceFiles = NULL, annotatedAssetId = NULL, platformVersion = NULL, systemRamFreeReports = NULL, meid = NULL, kind = NULL, osVersion = NULL, annotatedLocation = NULL, autoUpdateExpiration = NULL, lastKnownNetwork = NULL, dockMacAddress = NULL, systemRamTotal = NULL, etag = NULL, ethernetMacAddress = NULL, manufactureDate = NULL, screenshotFiles = NULL, lastEnrollmentTime = NULL, notes = NULL, tpmVersionInfo = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.patch']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.chromeosdevices.patch']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -219,59 +229,61 @@
 	#' \itemize{
 	#' \item https://www.googleapis.com/auth/admin.directory.device.chromeos
 	#' }
-	#' @param deviceId The unique ID of the device. The `deviceId`s are returned in the response from the [chromeosdevices.list](/admin-sdk/v1/reference/chromeosdevices/list) method.
 	#' @param customerId The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users resource](/admin-sdk/directory/v1/reference/users).
+	#' @param deviceId The unique ID of the device. The `deviceId`s are returned in the response from the [chromeosdevices.list](/admin-sdk/v1/reference/chromeosdevices/list) method.
 	#' @param projection Restrict information returned to a set of selected fields.
-	#' @param screenshotFiles List of screenshot files to download. Type is always "SCREENSHOT_FILE". (Read-only)
-	#' @param firmwareVersion The Chrome device's firmware version.
-	#' @param systemRamFreeReports Reports of amounts of available RAM memory (Read-only)
-	#' @param orderNumber The device's order number. Only devices directly purchased from Google have an order number.
-	#' @param ethernetMacAddress The device's MAC address on the ethernet network interface.
-	#' @param platformVersion The Chrome device's platform version.
-	#' @param deviceFiles List of device files to download (Read-only)
+	#' @param lastSync Date and time the device was last synchronized with the policy settings in the G Suite administrator control panel (Read-only)
+	#' @param serialNumber The Chrome device serial number entered when the device was enabled. This value is the same as the Admin console's *Serial Number* in the *Chrome OS Devices* tab.
 	#' @param macAddress The device's wireless MAC address. If the device does not have this information, it is not included in the response.
-	#' @param willAutoRenew Determines if the device will auto renew its support after the support end date. This is a read-only property.
-	#' @param recentUsers List of recent device users, in descending order, by last login time.
-	#' @param annotatedLocation The address or location of the device as noted by the administrator. Maximum length is `200` characters. Empty values are allowed.
-	#' @param systemRamTotal Total RAM on the device [in bytes] (Read-only)
+	#' @param cpuStatusReports Reports of CPU utilization and temperature (Read-only)
+	#' @param ethernetMacAddress0 (Read-only) MAC address used by the Chromebook’s internal ethernet port, and for onboard network (ethernet) interface. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
+	#' @param bootMode The boot mode for the device. The possible values are: * `Verified`: The device is running a valid version of the Chrome OS. * `Dev`: The devices's developer hardware switch is enabled. When booted, the device has a command line shell. For an example of a developer switch, see the [Chromebook developer information](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/samsung-series-5-chromebook#TOC-Developer-switch).
 	#' @param status The status of the device.
+	#' @param willAutoRenew Determines if the device will auto renew its support after the support end date. This is a read-only property.
+	#' @param orgUnitPath The full parent path with the organizational unit's name associated with the device. Path names are case insensitive. If the parent organizational unit is the top-level organization, it is represented as a forward slash, `/`. This property can be [updated](/admin-sdk/directory/v1/guides/manage-chrome-devices#update_chrome_device) using the API. For more information about how to create an organizational structure for your device, see the [administration help center](https://support.google.com/a/answer/182433).
+	#' @param diskVolumeReports Reports of disk space and other info about mounted/connected volumes.
+	#' @param firmwareVersion The Chrome device's firmware version.
+	#' @param activeTimeRanges List of active time ranges (Read-only).
 	#' @param annotatedUser The user of the device as noted by the administrator. Maximum length is 100 characters. Empty values are allowed.
+	#' @param recentUsers List of recent device users, in descending order, by last login time.
+	#' @param orderNumber The device's order number. Only devices directly purchased from Google have an order number.
 	#' @param model The device's model information. If the device does not have this information, this property is not included in the response.
 	#' @param supportEndDate Final date the device will be supported (Read-only)
-	#' @param ethernetMacAddress0 (Read-only) MAC address used by the Chromebook’s internal ethernet port, and for onboard network (ethernet) interface. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
-	#' @param notes Notes about this device added by the administrator. This property can be [searched](https://support.google.com/chrome/a/answer/1698333) with the [list](/admin-sdk/directory/v1/reference/chromeosdevices/list) method's `query` parameter. Maximum length is 500 characters. Empty values are allowed.
-	#' @param serialNumber The Chrome device serial number entered when the device was enabled. This value is the same as the Admin console's *Serial Number* in the *Chrome OS Devices* tab.
-	#' @param diskVolumeReports Reports of disk space and other info about mounted/connected volumes.
-	#' @param cpuStatusReports Reports of CPU utilization and temperature (Read-only)
-	#' @param bootMode The boot mode for the device. The possible values are: * `Verified`: The device is running a valid version of the Chrome OS. * `Dev`: The devices's developer hardware switch is enabled. When booted, the device has a command line shell. For an example of a developer switch, see the [Chromebook developer information](https://www.chromium.org/chromium-os/developer-information-for-chrome-os-devices/samsung-series-5-chromebook#TOC-Developer-switch).
-	#' @param orgUnitPath The full parent path with the organizational unit's name associated with the device. Path names are case insensitive. If the parent organizational unit is the top-level organization, it is represented as a forward slash, `/`. This property can be [updated](/admin-sdk/directory/v1/guides/manage-chrome-devices#update_chrome_device) using the API. For more information about how to create an organizational structure for your device, see the [administration help center](https://support.google.com/a/answer/182433).
-	#' @param lastSync Date and time the device was last synchronized with the policy settings in the G Suite administrator control panel (Read-only)
+	#' @param deviceFiles List of device files to download (Read-only)
 	#' @param annotatedAssetId The asset identifier as noted by an administrator or specified during enrollment.
-	#' @param osVersion The Chrome device's operating system version.
-	#' @param lastEnrollmentTime Date and time the device was last enrolled (Read-only)
-	#' @param kind The type of resource. For the Chromeosdevices resource, the value is `admin#directory#chromeosdevice`.
-	#' @param lastKnownNetwork Contains last known network (Read-only)
-	#' @param activeTimeRanges List of active time ranges (Read-only).
-	#' @param manufactureDate (Read-only) The date the device was manufactured in yyyy-mm-dd format.
-	#' @param tpmVersionInfo Trusted Platform Module (TPM) (Read-only)
+	#' @param platformVersion The Chrome device's platform version.
+	#' @param systemRamFreeReports Reports of amounts of available RAM memory (Read-only)
 	#' @param meid The Mobile Equipment Identifier (MEID) or the International Mobile Equipment Identity (IMEI) for the 3G mobile card in a mobile device. A MEID/IMEI is typically used when adding a device to a wireless carrier's post-pay service plan. If the device does not have this information, this property is not included in the response. For more information on how to export a MEID/IMEI list, see the [Developer's Guide](/admin-sdk/directory/v1/guides/manage-chrome-devices.html#export_meid).
-	#' @param dockMacAddress (Read-only) Built-in MAC address for the docking station that the device connected to. Factory sets Media access control address (MAC address) assigned for use by a dock. It is reserved specifically for MAC pass through device policy. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
-	#' @param etag ETag of the resource.
+	#' @param kind The type of resource. For the Chromeosdevices resource, the value is `admin#directory#chromeosdevice`.
+	#' @param osVersion The Chrome device's operating system version.
+	#' @param annotatedLocation The address or location of the device as noted by the administrator. Maximum length is `200` characters. Empty values are allowed.
 	#' @param autoUpdateExpiration (Read-only) The timestamp after which the device will stop receiving Chrome updates or support
+	#' @param lastKnownNetwork Contains last known network (Read-only)
+	#' @param dockMacAddress (Read-only) Built-in MAC address for the docking station that the device connected to. Factory sets Media access control address (MAC address) assigned for use by a dock. It is reserved specifically for MAC pass through device policy. The format is twelve (12) hexadecimal digits without any delimiter (uppercase letters). This is only relevant for some devices.
+	#' @param systemRamTotal Total RAM on the device [in bytes] (Read-only)
+	#' @param etag ETag of the resource.
+	#' @param ethernetMacAddress The device's MAC address on the ethernet network interface.
+	#' @param manufactureDate (Read-only) The date the device was manufactured in yyyy-mm-dd format.
+	#' @param screenshotFiles List of screenshot files to download. Type is always "SCREENSHOT_FILE". (Read-only)
+	#' @param lastEnrollmentTime Date and time the device was last enrolled (Read-only)
+	#' @param notes Notes about this device added by the administrator. This property can be [searched](https://support.google.com/chrome/a/answer/1698333) with the [list](/admin-sdk/directory/v1/reference/chromeosdevices/list) method's `query` parameter. Maximum length is 500 characters. Empty values are allowed.
+	#' @param tpmVersionInfo Trusted Platform Module (TPM) (Read-only)
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	chromeosdevices.update <- function(deviceId, customerId, projection = NULL, screenshotFiles = NULL, firmwareVersion = NULL, systemRamFreeReports = NULL, orderNumber = NULL, ethernetMacAddress = NULL, platformVersion = NULL, deviceFiles = NULL, macAddress = NULL, willAutoRenew = NULL, recentUsers = NULL, annotatedLocation = NULL, systemRamTotal = NULL, status = NULL, annotatedUser = NULL, model = NULL, supportEndDate = NULL, ethernetMacAddress0 = NULL, notes = NULL, serialNumber = NULL, diskVolumeReports = NULL, cpuStatusReports = NULL, bootMode = NULL, orgUnitPath = NULL, lastSync = NULL, annotatedAssetId = NULL, osVersion = NULL, lastEnrollmentTime = NULL, kind = NULL, lastKnownNetwork = NULL, activeTimeRanges = NULL, manufactureDate = NULL, tpmVersionInfo = NULL, meid = NULL, dockMacAddress = NULL, etag = NULL, autoUpdateExpiration = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.update']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	chromeosdevices.update <- function(customerId, deviceId, projection = NULL, lastSync = NULL, serialNumber = NULL, macAddress = NULL, cpuStatusReports = NULL, ethernetMacAddress0 = NULL, bootMode = NULL, status = NULL, willAutoRenew = NULL, orgUnitPath = NULL, diskVolumeReports = NULL, firmwareVersion = NULL, activeTimeRanges = NULL, annotatedUser = NULL, recentUsers = NULL, orderNumber = NULL, model = NULL, supportEndDate = NULL, deviceFiles = NULL, annotatedAssetId = NULL, platformVersion = NULL, systemRamFreeReports = NULL, meid = NULL, kind = NULL, osVersion = NULL, annotatedLocation = NULL, autoUpdateExpiration = NULL, lastKnownNetwork = NULL, dockMacAddress = NULL, systemRamTotal = NULL, etag = NULL, ethernetMacAddress = NULL, manufactureDate = NULL, screenshotFiles = NULL, lastEnrollmentTime = NULL, notes = NULL, tpmVersionInfo = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.chromeosdevices.update']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.chromeosdevices.update']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)

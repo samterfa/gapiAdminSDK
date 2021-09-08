@@ -13,19 +13,21 @@
 	#' }
 	#' @param customer Immutable ID of the Google Workspace account.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	privileges.list <- function(customer, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.privileges.list']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	privileges.list <- function(customer, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.privileges.list']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.privileges.list']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)

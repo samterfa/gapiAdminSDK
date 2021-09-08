@@ -13,19 +13,21 @@
 	#' @param customerId Immutable ID of the Google Workspace account.
 	#' @param schemaKey Name or immutable ID of the schema.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	schemas.delete <- function(customerId, schemaKey, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.delete']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	schemas.delete <- function(customerId, schemaKey, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.delete']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.schemas.delete']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -43,22 +45,24 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.userschema
 	#' \item https://www.googleapis.com/auth/admin.directory.userschema.readonly
 	#' }
-	#' @param customerId Immutable ID of the Google Workspace account.
 	#' @param schemaKey Name or immutable ID of the schema.
+	#' @param customerId Immutable ID of the Google Workspace account.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	schemas.get <- function(customerId, schemaKey, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.get']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	schemas.get <- function(schemaKey, customerId, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.get']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.schemas.get']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -76,25 +80,27 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.userschema
 	#' }
 	#' @param customerId Immutable ID of the Google Workspace account.
+	#' @param displayName Display name for the schema.
 	#' @param kind Kind of resource this is.
 	#' @param fields A list of fields in the schema.
-	#' @param displayName Display name for the schema.
 	#' @param etag The ETag of the resource.
-	#' @param schemaId The unique identifier of the schema (Read-only)
 	#' @param schemaName The schema's name.
+	#' @param schemaId The unique identifier of the schema (Read-only)
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	schemas.insert <- function(customerId, kind = NULL, fields = NULL, displayName = NULL, etag = NULL, schemaId = NULL, schemaName = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.insert']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	schemas.insert <- function(customerId, displayName = NULL, kind = NULL, fields = NULL, etag = NULL, schemaName = NULL, schemaId = NULL, callback = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.insert']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.schemas.insert']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -114,19 +120,21 @@
 	#' }
 	#' @param customerId Immutable ID of the Google Workspace account.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	schemas.list <- function(customerId, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.list']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	schemas.list <- function(customerId, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.list']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.schemas.list']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -143,27 +151,29 @@
 	#' \itemize{
 	#' \item https://www.googleapis.com/auth/admin.directory.userschema
 	#' }
-	#' @param schemaKey Name or immutable ID of the schema.
 	#' @param customerId Immutable ID of the Google Workspace account.
+	#' @param schemaKey Name or immutable ID of the schema.
+	#' @param displayName Display name for the schema.
 	#' @param kind Kind of resource this is.
 	#' @param fields A list of fields in the schema.
-	#' @param displayName Display name for the schema.
 	#' @param etag The ETag of the resource.
-	#' @param schemaId The unique identifier of the schema (Read-only)
 	#' @param schemaName The schema's name.
+	#' @param schemaId The unique identifier of the schema (Read-only)
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	schemas.patch <- function(schemaKey, customerId, kind = NULL, fields = NULL, displayName = NULL, etag = NULL, schemaId = NULL, schemaName = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.patch']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	schemas.patch <- function(customerId, schemaKey, displayName = NULL, kind = NULL, fields = NULL, etag = NULL, schemaName = NULL, schemaId = NULL, callback = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.patch']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.schemas.patch']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)
@@ -180,27 +190,29 @@
 	#' \itemize{
 	#' \item https://www.googleapis.com/auth/admin.directory.userschema
 	#' }
-	#' @param customerId Immutable ID of the Google Workspace account.
 	#' @param schemaKey Name or immutable ID of the schema.
+	#' @param customerId Immutable ID of the Google Workspace account.
+	#' @param displayName Display name for the schema.
 	#' @param kind Kind of resource this is.
 	#' @param fields A list of fields in the schema.
-	#' @param displayName Display name for the schema.
 	#' @param etag The ETag of the resource.
-	#' @param schemaId The unique identifier of the schema (Read-only)
 	#' @param schemaName The schema's name.
+	#' @param schemaId The unique identifier of the schema (Read-only)
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	schemas.update <- function(customerId, schemaKey, kind = NULL, fields = NULL, displayName = NULL, etag = NULL, schemaId = NULL, schemaName = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.update']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	schemas.update <- function(schemaKey, customerId, displayName = NULL, kind = NULL, fields = NULL, etag = NULL, schemaName = NULL, schemaId = NULL, callback = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['directory.schemas.update']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['directory.schemas.update']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)

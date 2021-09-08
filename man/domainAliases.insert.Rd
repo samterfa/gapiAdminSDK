@@ -6,46 +6,41 @@
 \usage{
 domainAliases.insert(
   customer,
-  kind = NULL,
+  domainAliasName = NULL,
   verified = NULL,
+  kind = NULL,
+  etag = NULL,
   creationTime = NULL,
   parentDomainName = NULL,
-  domainAliasName = NULL,
-  etag = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.domainAliases.insert"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
 \item{customer}{Immutable ID of the Google Workspace account.}
 
-\item{kind}{Kind of resource this is.}
+\item{domainAliasName}{The domain alias name.}
 
 \item{verified}{Indicates the verification state of a domain alias. (Read-only)}
+
+\item{kind}{Kind of resource this is.}
+
+\item{etag}{ETag of the resource.}
 
 \item{creationTime}{The creation time of the domain alias. (Read-only).}
 
 \item{parentDomainName}{The parent domain name that the domain alias is associated with. This can either be a primary or secondary domain name within a customer.}
 
-\item{domainAliasName}{The domain alias name.}
-
-\item{etag}{ETag of the resource.}
-
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -53,7 +48,15 @@ domainAliases.insert(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

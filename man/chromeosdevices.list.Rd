@@ -6,37 +6,38 @@
 \usage{
 chromeosdevices.list(
   customerId,
-  pageToken = NULL,
-  sortOrder = NULL,
-  query = NULL,
   projection = NULL,
   orgUnitPath = NULL,
+  query = NULL,
+  sortOrder = NULL,
+  pageToken = NULL,
   maxResults = NULL,
   orderBy = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.chromeosdevices.list"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
 \item{customerId}{The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the \code{my_customer} alias to represent your account's \code{customerId}. The \code{customerId} is also returned as part of the \href{/admin-sdk/directory/v1/reference/users}{Users resource}.}
 
-\item{pageToken}{The \code{pageToken} query parameter is used to request the next page of query results. The follow-on request's \code{pageToken} query parameter is the \code{nextPageToken} from your previous response.}
-
-\item{sortOrder}{Whether to return results in ascending or descending order. Must be used with the \code{orderBy} parameter.}
-
-\item{query}{Search string in the format given at http://support.google.com/chromeos/a/bin/answer.py?answer=1698333}
-
 \item{projection}{Restrict information returned to a set of selected fields.}
 
 \item{orgUnitPath}{The full path of the organizational unit or its unique ID.}
+
+\item{query}{Search string in the format given at http://support.google.com/chromeos/a/bin/answer.py?answer=1698333}
+
+\item{sortOrder}{Whether to return results in ascending or descending order. Must be used with the \code{orderBy} parameter.}
+
+\item{pageToken}{The \code{pageToken} query parameter is used to request the next page of query results. The follow-on request's \code{pageToken} query parameter is the \code{nextPageToken} from your previous response.}
 
 \item{maxResults}{Maximum number of results to return.}
 
@@ -44,19 +45,21 @@ chromeosdevices.list(
 
 \item{callback}{JSONP}
 
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
-
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
 \item{uploadType}{Legacy upload protocol for media (e.g. "media", "multipart").}
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

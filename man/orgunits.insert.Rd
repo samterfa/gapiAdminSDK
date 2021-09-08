@@ -7,23 +7,24 @@
 orgunits.insert(
   customerId,
   name = NULL,
+  description = NULL,
   blockInheritance = NULL,
   parentOrgUnitId = NULL,
-  orgUnitId = NULL,
-  orgUnitPath = NULL,
   kind = NULL,
-  etag = NULL,
-  description = NULL,
+  orgUnitId = NULL,
   parentOrgUnitPath = NULL,
+  etag = NULL,
+  orgUnitPath = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.orgunits.insert"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
@@ -32,29 +33,23 @@ orgunits.insert(
 
 \item{name}{The organizational unit's path name. For example, an organizational unit's name within the /corp/support/sales_support parent path is sales_support. Required.}
 
+\item{description}{Description of the organizational unit.}
+
 \item{blockInheritance}{Determines if a sub-organizational unit can inherit the settings of the parent organization. The default value is \code{false}, meaning a sub-organizational unit inherits the settings of the nearest parent organizational unit. For more information on inheritance and users in an organization structure, see the \href{https://support.google.com/a/answer/4352075}{administration help center}.}
 
 \item{parentOrgUnitId}{The unique ID of the parent organizational unit. Required, unless \code{parentOrgUnitPath} is set.}
 
-\item{orgUnitId}{The unique ID of the organizational unit.}
-
-\item{orgUnitPath}{The full path to the organizational unit. The \code{orgUnitPath} is a derived property. When listed, it is derived from \code{parentOrgunitPath} and organizational unit's \code{name}. For example, for an organizational unit named 'apps' under parent organization '/engineering', the orgUnitPath is '/engineering/apps'. In order to edit an \code{orgUnitPath}, either update the name of the organization or the \code{parentOrgunitPath}. A user's organizational unit determines which Google Workspace services the user has access to. If the user is moved to a new organization, the user's access changes. For more information about organization structures, see the \href{https://support.google.com/a/answer/4352075}{administration help center}. For more information about moving a user to a different organization, see \href{/admin-sdk/directory/v1/guides/manage-users.html#update_user}{Update a user}.}
-
 \item{kind}{The type of the API resource. For Orgunits resources, the value is \code{admin#directory#orgUnit}.}
 
-\item{etag}{ETag of the resource.}
-
-\item{description}{Description of the organizational unit.}
+\item{orgUnitId}{The unique ID of the organizational unit.}
 
 \item{parentOrgUnitPath}{The organizational unit's parent path. For example, /corp/sales is the parent path for /corp/sales/sales_support organizational unit. Required, unless \code{parentOrgUnitId} is set.}
 
+\item{etag}{ETag of the resource.}
+
+\item{orgUnitPath}{The full path to the organizational unit. The \code{orgUnitPath} is a derived property. When listed, it is derived from \code{parentOrgunitPath} and organizational unit's \code{name}. For example, for an organizational unit named 'apps' under parent organization '/engineering', the orgUnitPath is '/engineering/apps'. In order to edit an \code{orgUnitPath}, either update the name of the organization or the \code{parentOrgunitPath}. A user's organizational unit determines which Google Workspace services the user has access to. If the user is moved to a new organization, the user's access changes. For more information about organization structures, see the \href{https://support.google.com/a/answer/4352075}{administration help center}. For more information about moving a user to a different organization, see \href{/admin-sdk/directory/v1/guides/manage-users.html#update_user}{Update a user}.}
+
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -62,7 +57,15 @@ orgunits.insert(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

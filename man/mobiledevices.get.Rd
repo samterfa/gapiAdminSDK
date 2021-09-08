@@ -5,35 +5,30 @@
 \title{Retrieves a mobile device's properties.}
 \usage{
 mobiledevices.get(
-  resourceId,
   customerId,
+  resourceId,
   projection = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.mobiledevices.get"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
-\item{resourceId}{The unique ID the API service uses to identify the mobile device.}
-
 \item{customerId}{The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the \code{my_customer} alias to represent your account's \code{customerId}. The \code{customerId} is also returned as part of the \href{/admin-sdk/directory/v1/reference/users}{Users resource}.}
+
+\item{resourceId}{The unique ID the API service uses to identify the mobile device.}
 
 \item{projection}{Restrict information returned to a set of selected fields.}
 
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -41,7 +36,15 @@ mobiledevices.get(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

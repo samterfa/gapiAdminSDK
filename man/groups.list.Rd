@@ -5,50 +5,45 @@
 \title{Retrieves all groups of a domain or of a user given a userKey (paginated).}
 \usage{
 groups.list(
+  orderBy = NULL,
+  domain = NULL,
+  userKey = NULL,
+  customer = NULL,
+  maxResults = NULL,
   query = NULL,
   pageToken = NULL,
   sortOrder = NULL,
-  domain = NULL,
-  maxResults = NULL,
-  customer = NULL,
-  userKey = NULL,
-  orderBy = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.groups.list"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
+\item{orderBy}{Column to use for sorting results}
+
+\item{domain}{The domain name. Use this field to get fields from only one domain. To return all domains for a customer account, use the \code{customer} query parameter instead.}
+
+\item{userKey}{Email or immutable ID of the user if only those groups are to be listed, the given user is a member of. If it's an ID, it should match with the ID of the user object.}
+
+\item{customer}{The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, fill this field instead of domain. As an account administrator, you can also use the \code{my_customer} alias to represent your account's \code{customerId}. The \code{customerId} is also returned as part of the \href{/admin-sdk/directory/v1/reference/users}{Users}}
+
+\item{maxResults}{Maximum number of results to return. Max allowed value is 200.}
+
 \item{query}{Query string search. Should be of the form "". Complete documentation is at https: //developers.google.com/admin-sdk/directory/v1/guides/search-groups}
 
 \item{pageToken}{Token to specify next page in the list}
 
 \item{sortOrder}{Whether to return results in ascending or descending order. Only of use when orderBy is also used}
 
-\item{domain}{The domain name. Use this field to get fields from only one domain. To return all domains for a customer account, use the \code{customer} query parameter instead.}
-
-\item{maxResults}{Maximum number of results to return. Max allowed value is 200.}
-
-\item{customer}{The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, fill this field instead of domain. As an account administrator, you can also use the \code{my_customer} alias to represent your account's \code{customerId}. The \code{customerId} is also returned as part of the \href{/admin-sdk/directory/v1/reference/users}{Users}}
-
-\item{userKey}{Email or immutable ID of the user if only those groups are to be listed, the given user is a member of. If it's an ID, it should match with the ID of the user object.}
-
-\item{orderBy}{Column to use for sorting results}
-
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -56,7 +51,15 @@ groups.list(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

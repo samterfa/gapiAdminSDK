@@ -14,30 +14,32 @@
 	#' \item https://www.googleapis.com/auth/admin.directory.user.readonly
 	#' \item https://www.googleapis.com/auth/cloud-platform
 	#' }
-	#' @param type The type of delivery mechanism used for this channel.
 	#' @param params Additional parameters controlling delivery channel behavior. Optional.
-	#' @param id A UUID or similar unique string that identifies this channel.
-	#' @param resourceUri A version-specific identifier for the watched resource.
-	#' @param kind Identifies this as a notification channel used to watch for changes to a resource, which is `api#channel`.
-	#' @param payload A Boolean value to indicate whether payload is wanted. Optional.
-	#' @param address The address where notifications are delivered for this channel.
-	#' @param token An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
 	#' @param expiration Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.
+	#' @param payload A Boolean value to indicate whether payload is wanted. Optional.
+	#' @param type The type of delivery mechanism used for this channel.
+	#' @param kind Identifies this as a notification channel used to watch for changes to a resource, which is `api#channel`.
+	#' @param address The address where notifications are delivered for this channel.
+	#' @param resourceUri A version-specific identifier for the watched resource.
+	#' @param token An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.
+	#' @param id A UUID or similar unique string that identifies this channel.
 	#' @param resourceId An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.
 	#' @param callback JSONP
-	#' @param prettyPrint Returns response with indentations and line breaks.
-	#' @param alt Data format for response.
-	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
 	#' @param fields Selector specifying which fields to include in a partial response.
 	#' @param uploadType Legacy upload protocol for media (e.g. "media", "multipart").
 	#' @param upload_protocol Upload protocol for media (e.g. "raw", "multipart").
+	#' @param prettyPrint Returns response with indentations and line breaks.
+	#' @param quotaUser Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+	#' @param alt Data format for response.
 	#' @param gargle_token A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.
+	#' @param return_request Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.
 	#' @param return_response Whether to return the response or the response content. Defaults to FALSE (return response content).
 	#' @export
-	channels.stop <- function(type = NULL, params = NULL, id = NULL, resourceUri = NULL, kind = NULL, payload = NULL, address = NULL, token = NULL, expiration = NULL, resourceId = NULL, callback = NULL, prettyPrint = NULL, alt = NULL, quotaUser = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['admin.channels.stop']]$scopes[[1]]), return_response = F){
-		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_response', 'gargle_token')]
+	channels.stop <- function(params = NULL, expiration = NULL, payload = NULL, type = NULL, kind = NULL, address = NULL, resourceUri = NULL, token = NULL, id = NULL, resourceId = NULL, callback = NULL, fields = NULL, uploadType = NULL, upload_protocol = NULL, prettyPrint = NULL, quotaUser = NULL, alt = NULL, gargle_token = gargle::token_fetch(scopes = .endpoints[['admin.channels.stop']]$scopes[[1]]), return_request = F, return_response = F){
+		params <- as.list(environment())[!names(as.list(environment())) %in% c('return_request', 'return_response', 'gargle_token')]
 		req <- gargle::request_develop(endpoint = .endpoints[['admin.channels.stop']], params = params, base_url = 'https://admin.googleapis.com/')
 		req <- gargle::request_build(method = req$method, path = req$path, params = req$params, body = req$body, token = httr::config(token = gargle_token), base_url = req$base_url)
+		if(return_request) return(req)
 		res <- gargle::request_make(req, encode = 'json')
 		if(return_response) return(res)
 		httr::content(res)

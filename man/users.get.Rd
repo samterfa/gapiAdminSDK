@@ -6,37 +6,32 @@
 \usage{
 users.get(
   userKey,
-  customFieldMask = NULL,
   viewType = NULL,
+  customFieldMask = NULL,
   projection = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.users.get"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
 \item{userKey}{Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.}
 
-\item{customFieldMask}{A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when \code{projection=custom}.}
-
 \item{viewType}{Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see \href{/admin-sdk/directory/v1/guides/manage-users#retrieve_users_non_admin}{Retrieve a user as a non-administrator}.}
+
+\item{customFieldMask}{A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when \code{projection=custom}.}
 
 \item{projection}{What subset of fields to fetch for this user.}
 
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -44,7 +39,15 @@ users.get(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

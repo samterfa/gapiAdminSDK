@@ -6,52 +6,47 @@
 \usage{
 members.insert(
   groupKey,
-  role = NULL,
+  etag = NULL,
   status = NULL,
-  id = NULL,
+  role = NULL,
   delivery_settings = NULL,
   type = NULL,
+  id = NULL,
   email = NULL,
-  etag = NULL,
   kind = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.members.insert"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
 \item{groupKey}{Identifies the group in the API request. The value can be the group's email address, group alias, or the unique group ID.}
 
-\item{role}{The member's role in a group. The API returns an error for cycles in group memberships. For example, if \code{group1} is a member of \code{group2}, \code{group2} cannot be a member of \code{group1}. For more information about a member's role, see the \href{https://support.google.com/a/answer/167094}{administration help center}.}
+\item{etag}{ETag of the resource.}
 
 \item{status}{Status of member (Immutable)}
 
-\item{id}{The unique ID of the group member. A member \code{id} can be used as a member request URI's \code{memberKey}.}
+\item{role}{The member's role in a group. The API returns an error for cycles in group memberships. For example, if \code{group1} is a member of \code{group2}, \code{group2} cannot be a member of \code{group1}. For more information about a member's role, see the \href{https://support.google.com/a/answer/167094}{administration help center}.}
 
 \item{delivery_settings}{Defines mail delivery preferences of member. This is only supported by create/update/get.}
 
 \item{type}{The type of group member.}
 
-\item{email}{The member's email address. A member can be a user or another group. This property is required when adding a member to a group. The \code{email} must be unique and cannot be an alias of another group. If the email address is changed, the API automatically reflects the email address changes.}
+\item{id}{The unique ID of the group member. A member \code{id} can be used as a member request URI's \code{memberKey}.}
 
-\item{etag}{ETag of the resource.}
+\item{email}{The member's email address. A member can be a user or another group. This property is required when adding a member to a group. The \code{email} must be unique and cannot be an alias of another group. If the email address is changed, the API automatically reflects the email address changes.}
 
 \item{kind}{The type of the API resource. For Members resources, the value is \code{admin#directory#member}.}
 
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -59,7 +54,15 @@ members.insert(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

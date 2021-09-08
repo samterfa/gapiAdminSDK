@@ -8,23 +8,24 @@ groups.patch(
   groupKey,
   description = NULL,
   nonEditableAliases = NULL,
-  directMembersCount = NULL,
-  id = NULL,
   name = NULL,
   kind = NULL,
-  email = NULL,
-  adminCreated = NULL,
-  etag = NULL,
   aliases = NULL,
+  directMembersCount = NULL,
+  email = NULL,
+  etag = NULL,
+  adminCreated = NULL,
+  id = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.groups.patch"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
@@ -35,29 +36,23 @@ groups.patch(
 
 \item{nonEditableAliases}{List of the group's non-editable alias email addresses that are outside of the account's primary domain or subdomains. These are functioning email addresses used by the group. This is a read-only property returned in the API's response for a group. If edited in a group's POST or PUT request, the edit is ignored by the API service.}
 
-\item{directMembersCount}{The number of users that are direct members of the group. If a group is a member (child) of this group (the parent), members of the child group are not counted in the \code{directMembersCount} property of the parent group.}
-
-\item{id}{The unique ID of a group. A group \code{id} can be used as a group request URI's \code{groupKey}.}
-
 \item{name}{The group's display name.}
 
 \item{kind}{The type of the API resource. For Groups resources, the value is \code{admin#directory#group}.}
 
-\item{email}{The group's email address. If your account has multiple domains, select the appropriate domain for the email address. The \code{email} must be unique. This property is required when creating a group. Group email addresses are subject to the same character usage rules as usernames, see the \href{https://support.google.com/a/answer/9193374}{help center} for details.}
+\item{aliases}{List of a group's alias email addresses.}
 
-\item{adminCreated}{Value is \code{true} if this group was created by an administrator rather than a user.}
+\item{directMembersCount}{The number of users that are direct members of the group. If a group is a member (child) of this group (the parent), members of the child group are not counted in the \code{directMembersCount} property of the parent group.}
+
+\item{email}{The group's email address. If your account has multiple domains, select the appropriate domain for the email address. The \code{email} must be unique. This property is required when creating a group. Group email addresses are subject to the same character usage rules as usernames, see the \href{https://support.google.com/a/answer/9193374}{help center} for details.}
 
 \item{etag}{ETag of the resource.}
 
-\item{aliases}{List of a group's alias email addresses.}
+\item{adminCreated}{Value is \code{true} if this group was created by an administrator rather than a user.}
+
+\item{id}{The unique ID of a group. A group \code{id} can be used as a group request URI's \code{groupKey}.}
 
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -65,7 +60,15 @@ groups.patch(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }

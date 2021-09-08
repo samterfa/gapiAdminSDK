@@ -5,62 +5,57 @@
 \title{Retrieves a paginated list of either deleted users or all users in a domain.}
 \usage{
 users.list(
-  event = NULL,
-  domain = NULL,
-  projection = NULL,
-  orderBy = NULL,
-  query = NULL,
-  showDeleted = NULL,
-  maxResults = NULL,
   pageToken = NULL,
-  customer = NULL,
   customFieldMask = NULL,
+  event = NULL,
   sortOrder = NULL,
   viewType = NULL,
+  query = NULL,
+  domain = NULL,
+  showDeleted = NULL,
+  orderBy = NULL,
+  maxResults = NULL,
+  customer = NULL,
+  projection = NULL,
   callback = NULL,
-  prettyPrint = NULL,
-  alt = NULL,
-  quotaUser = NULL,
   fields = NULL,
   uploadType = NULL,
   upload_protocol = NULL,
+  prettyPrint = NULL,
+  quotaUser = NULL,
+  alt = NULL,
   gargle_token = gargle::token_fetch(scopes =
     .endpoints[["directory.users.list"]]$scopes[[1]]),
+  return_request = F,
   return_response = F
 )
 }
 \arguments{
-\item{event}{Event on which subscription is intended (if subscribing)}
-
-\item{domain}{The domain name. Use this field to get fields from only one domain. To return all domains for a customer account, use the \code{customer} query parameter instead. Either the \code{customer} or the \code{domain} parameter must be provided.}
-
-\item{projection}{What subset of fields to fetch for this user.}
-
-\item{orderBy}{Property to use for sorting results.}
-
-\item{query}{Query string for searching user fields. For more information on constructing user queries, see \href{/admin-sdk/directory/v1/guides/search-users}{Search for Users}.}
-
-\item{showDeleted}{If set to \code{true}, retrieves the list of deleted users. (Default: \code{false})}
-
-\item{maxResults}{Maximum number of results to return.}
-
 \item{pageToken}{Token to specify next page in the list}
 
-\item{customer}{The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, fill this field instead of domain. You can also use the \code{my_customer} alias to represent your account's \code{customerId}. The \code{customerId} is also returned as part of the \href{/admin-sdk/directory/v1/reference/users}{Users resource}. Either the \code{customer} or the \code{domain} parameter must be provided.}
-
 \item{customFieldMask}{A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when \code{projection=custom}.}
+
+\item{event}{Event on which subscription is intended (if subscribing)}
 
 \item{sortOrder}{Whether to return results in ascending or descending order.}
 
 \item{viewType}{Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see \href{/admin-sdk/directory/v1/guides/manage-users#retrieve_users_non_admin}{Retrieve a user as a non-administrator}.}
 
+\item{query}{Query string for searching user fields. For more information on constructing user queries, see \href{/admin-sdk/directory/v1/guides/search-users}{Search for Users}.}
+
+\item{domain}{The domain name. Use this field to get fields from only one domain. To return all domains for a customer account, use the \code{customer} query parameter instead. Either the \code{customer} or the \code{domain} parameter must be provided.}
+
+\item{showDeleted}{If set to \code{true}, retrieves the list of deleted users. (Default: \code{false})}
+
+\item{orderBy}{Property to use for sorting results.}
+
+\item{maxResults}{Maximum number of results to return.}
+
+\item{customer}{The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, fill this field instead of domain. You can also use the \code{my_customer} alias to represent your account's \code{customerId}. The \code{customerId} is also returned as part of the \href{/admin-sdk/directory/v1/reference/users}{Users resource}. Either the \code{customer} or the \code{domain} parameter must be provided.}
+
+\item{projection}{What subset of fields to fetch for this user.}
+
 \item{callback}{JSONP}
-
-\item{prettyPrint}{Returns response with indentations and line breaks.}
-
-\item{alt}{Data format for response.}
-
-\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
 
 \item{fields}{Selector specifying which fields to include in a partial response.}
 
@@ -68,7 +63,15 @@ users.list(
 
 \item{upload_protocol}{Upload protocol for media (e.g. "raw", "multipart").}
 
+\item{prettyPrint}{Returns response with indentations and line breaks.}
+
+\item{quotaUser}{Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.}
+
+\item{alt}{Data format for response.}
+
 \item{gargle_token}{A token prepared by one of gargle's token generating functions. Defaults to gargle::token_fetch(...) with appropriate scopes. See \code{\link[gargle]{token_fetch}} for more info.}
+
+\item{return_request}{Whether to return the request without making it. Defaults to FALSE. See \code{\link[gargle]{request_build}} for more info on the returned request object.}
 
 \item{return_response}{Whether to return the response or the response content. Defaults to FALSE (return response content).}
 }
